@@ -1,0 +1,20 @@
+{
+        "planets:":[
+            {
+                "semiMajorAxis":100.0,
+                "eccentricity":0.0,
+                "inclination":0.0 ,
+                "longitudeOfAcendingNode":0.0,
+                "argumentOfPeriapsis":0.0,
+                "meanLongitude":0.0 
+            },
+            {
+                "semiMajorAxis":100.0,
+                "eccentricity":0.0,
+                "inclination":0.0 ,
+                "longitudeOfAcendingNode":0.0,
+                "argumentOfPeriapsis":0.0,
+                "meanLongitude":0.0 
+            }
+        ]
+}
