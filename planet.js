@@ -1,14 +1,13 @@
 export class Planet {
-    constructor(sunMass){
+    constructor(sunMass, name){
         this.sunMass = sunMass;
-
+        this.name = name;
         this.semiMajorAxis;
         this.eccentricity;
         this.inclination;
         this.longitudeOfAcendingNode;
         this.argumentOfPeriapsis;
         this.meanLongitude;
-
         this.mu;
         this.n;
         this.trueAnomalyConstant;
@@ -17,15 +16,19 @@ export class Planet {
         this.cosI;
         this.sinI;
         this.sunMass;
-
         this.G = 6.674;
         this.maxIterations = 4;
         this.accuracyTolerance = 1e-6;
         this.color;
+        this.dataIndex;  
     }
 
     set color(col){
         this.col = col;
+    }
+
+    setDataIndex(index){
+        this.dataIndex = index;
     }
 
     setOrbitalElements(a,e,i,n,w,L){
@@ -161,6 +164,7 @@ export class Planet {
         let x = distance * ((this.cosLOAN * cosAOPPlusTA) - (this.sinLOAN * sinAOPPlusTA * this.cosI));
         let z = distance * ((this.sinLOAN * cosAOPPlusTA) + (this.cosLOAN * sinAOPPlusTA * this.cosI));      //Switching z and y to be aligned with xz not xy
         let y = distance * (this.sinI * sinAOPPlusTA);
+
         let pos = [x,y,z];
         return pos;
     }

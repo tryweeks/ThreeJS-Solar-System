@@ -12,6 +12,7 @@ export {dataDwarfPlanets};
     [6] COLOR;
     [7] Size (relative to earth)
     [8] Symbol (resource path)
+    [9] Display Name
 
 
 */
@@ -25,7 +26,8 @@ dataPlanets[0] = [
             0,
             0xADAAAC,
             0.3829,
-            "./res/mercury.png"] //MERCURY
+            "./res/mercury.png",
+            "Mercury",] //MERCURY
 dataPlanets[1] = [
             72.3,
             0.006772,
@@ -35,7 +37,8 @@ dataPlanets[1] = [
             0,
             0xDACC9A,
             0.9499,
-            "./res/venus.png"] //VENUS
+            "./res/venus.png",
+            "Venus",] //VENUS
 dataPlanets[2] = [
             100,
             0.016708,
@@ -45,7 +48,8 @@ dataPlanets[2] = [
             0,
             0x00b1cd,
             1,
-            "./res/earth.png"] //EARTH
+            "./res/earth.png",
+            "Earth",] //EARTH
 dataPlanets[3] = [
             152.3,
             0.0934,
@@ -55,7 +59,8 @@ dataPlanets[3] = [
             0,
             0xf66754,
             0.533,
-            "./res/mars.png"] //MARS
+            "./res/mars.png",
+            "Mars",] //MARS
 
 dataPlanets[4] = [
             520.38,
@@ -66,7 +71,8 @@ dataPlanets[4] = [
             0,
             0xfb882b,
             11.209,
-            "./res/jupiter.png"] //JUPITER
+            "./res/jupiter.png",
+            "Jupiter",] //JUPITER
 dataPlanets[5] = [
             958.26,
             0.0565,
@@ -76,7 +82,8 @@ dataPlanets[5] = [
             0,
             0xe9bb1e,
             9.449,
-            "./res/saturn.png"] //Saturn
+            "./res/saturn.png",
+            "Saturn",] //Saturn
 dataPlanets[6] = [
             2009.65,
             0.04717,
@@ -86,7 +93,8 @@ dataPlanets[6] = [
             0,
             0x00e0db,
             4.007,
-            "./res/uranus.png"] //Uranus
+            "./res/uranus.png",
+            "Uranus",] //Uranus
 dataPlanets[7] = [
             3007,
             0.008678,
@@ -96,7 +104,8 @@ dataPlanets[7] = [
             0,
             0x489eff,
             3.883,
-            "./res/neptune.png"] //Neptune
+            "./res/neptune.png",
+            "Neptune",] //Neptune
 
 const dataDwarfPlanets = [];
 dataDwarfPlanets[0] = [
@@ -108,7 +117,8 @@ dataDwarfPlanets[0] = [
             0,
             0x6f6f6f,
             10,
-            "./res/ceres.png"] //Ceres
+            "./res/ceres.png",
+            "Ceres",] //Ceres
 dataDwarfPlanets[1] = [
             3948.2,
             0.2488,
@@ -118,7 +128,8 @@ dataDwarfPlanets[1] = [
             0,
             0xbfbfbf,
             80,
-            "./res/pluto.png"] //Pluto
+            "./res/pluto.png",
+            "Pluto",] //Pluto
 dataDwarfPlanets[2] = [
             6786.4,
             0.43607,
@@ -128,7 +139,8 @@ dataDwarfPlanets[2] = [
             0,
             0xbfbfbf,
             120,
-            "./res/eris.png"] //Eris
+            "./res/eris.png",
+            "Eris",] //Eris
 dataDwarfPlanets[3] = [
             50600,
             0.8496,
@@ -138,7 +150,8 @@ dataDwarfPlanets[3] = [
             0,
             0xcf2f0f,
             500,
-            "./res/sedna.png"] //Sedna
+            "./res/sedna.png",
+            "Sedna",] //Sedna
 dataDwarfPlanets[4] = [
             3917.4,
             0.22701,
@@ -148,7 +161,8 @@ dataDwarfPlanets[4] = [
             0,
             0x9f9f9f,
             125,
-            "./res/orcus.png"] //Orcus
+            "./res/orcus.png",
+            "Orcus",] //Orcus
 dataDwarfPlanets[5] = [
             4311.6,
             0.19642,
@@ -158,7 +172,8 @@ dataDwarfPlanets[5] = [
             0,
             0xefefef,
             125,
-            "./res/haumea.png"] //Haumea
+            "./res/haumea.png",
+            "Haumea",] //Haumea
 dataDwarfPlanets[6] = [
             4543,
             0.16126,
@@ -168,7 +183,8 @@ dataDwarfPlanets[6] = [
             0,
             0x9f9faf,
             125,
-            "./res/makemake.png"] //Makemake
+            "./res/makemake.png",
+            "Makemake",] //Makemake
 dataDwarfPlanets[7] = [
             6748.5,
             0.49943,
@@ -178,7 +194,8 @@ dataDwarfPlanets[7] = [
             0,
             0xaf0a0c,
             250,
-            "./res/gonggong.png"] //Gonggong
+            "./res/gonggong.png",
+            "Gonggong",] //Gonggong
                 
 /*
     dataPlanets FORMAT
@@ -191,6 +208,7 @@ dataDwarfPlanets[7] = [
     [6] COLOR;
     [7] Size (relative to earth)
     [8] Symbol (resource path)
+    [9] Display Name
 
 
 */

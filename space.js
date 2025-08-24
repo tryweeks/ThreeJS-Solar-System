@@ -14,12 +14,13 @@ import {dataDwarfPlanets} from "./data.js"
 //import * as dat from './lib/dat.gui.module.js';
 import {GUI} from "./lib/dat.gui.module.js"
 //OBJECT DATA ARRAYS
-let planetOrbits = [];
+let planets = [];
 let planetObjects = [];
 let planetLines =[];
-let dwarfPlanetOrbits = [];
+let dwarfPlanets = [];
 let dwarfPlanetObjects = [];
 let dwarfPlanetLines =[];
+let labels = [];
 
 let planetGroup, planetLinesGroup;
 let dwarfPlanetGroup, dwarfPlanetLinesGroup;
@@ -45,6 +46,9 @@ const gui = new GUI();
 const guiPlanetFolder = gui.addFolder("Planets");
 const guiDwarfPlanetFolder = gui.addFolder("Dwarf Planets");
 
+const canvas = document.querySelector("#c");
+const labelContainerElem = document.querySelector('#labels');
+const tempV = new THREE.Vector3();
 //line////////////////////////////////////
 
 let matLine;
@@ -65,11 +69,11 @@ function init()
     renderer = new THREE.WebGLRenderer({
         logarithmicDepthBuffer: true,
         antialias: true,
+        canvas
     });
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setClearColor( 0x000f0f, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
     
     //Scene & camera setup
     scene = new THREE.Scene();
@@ -131,16 +135,17 @@ function createAstronomicalBodies()
     //PLANETS
     planetGroup = new THREE.Group();
     planetLinesGroup = new THREE.Group();
-    planetOrbits = [];
+    planets = [];
     planetObjects = [];
     planetLines =[];
     for(let i =0;i<dataPlanets.length;i++)
     {
         let _group = new THREE.Group();
         //Orbit calculation objects
-        planetOrbits[i] = new Planet(sunMass);
-        planetOrbits[i].setOrbitalElements(dataPlanets[i][0]*scaleFactor,dataPlanets[i][1],dataPlanets[i][2],dataPlanets[i][3],dataPlanets[i][4],dataPlanets[i][5]);
-        planetOrbits[i].calculateSemiConstants();
+        planets[i] = new Planet(sunMass,dataPlanets[i][9]);
+        planets[i].setDataIndex(i);
+        planets[i].setOrbitalElements(dataPlanets[i][0]*scaleFactor,dataPlanets[i][1],dataPlanets[i][2],dataPlanets[i][3],dataPlanets[i][4],dataPlanets[i][5]);
+        planets[i].calculateSemiConstants();
 
         //PLanet object
         let geo = new THREE.SphereGeometry(dataPlanets[i][7]*scaleFactor*auEarthRadiusRatio, 64, 32);
@@ -155,7 +160,7 @@ function createAstronomicalBodies()
         _group.add(planetObjects[i]);
 
         //Orbit lines
-        let attr = planetOrbits[i].calculateOrbitLineColor(divisions,color.r,color.g,color.b);
+        let attr = planets[i].calculateOrbitLineColor(divisions,color.r,color.g,color.b);
         //let attr = planetOrbits[i].calculateOrbitLine(divisions); 
         let pLineGeometry = new LineGeometry();
         pLineGeometry.setPositions(attr[0]);
@@ -210,6 +215,13 @@ function createAstronomicalBodies()
         
         planetGroup.add(_group);
 
+        //Labels
+        const elem = document.createElement('div');
+        elem.textContent = dataPlanets[i][9];
+        labelContainerElem.appendChild(elem);
+        labels[i] = elem;
+        //labels.
+
 
         //
     }
@@ -226,16 +238,16 @@ function createAstronomicalBodies()
     //DWARF PLANETS
     dwarfPlanetGroup = new THREE.Group();
     dwarfPlanetLinesGroup = new THREE.Group();
-    dwarfPlanetOrbits = [];
+    dwarfPlanets = [];
     dwarfPlanetObjects = [];
     dwarfPlanetLines =[];
     for(let i =0;i<dataDwarfPlanets.length;i++){
 
         let _group = new THREE.Group();
         //Orbit calculation objects
-        dwarfPlanetOrbits[i] = new Planet(sunMass);
-        dwarfPlanetOrbits[i].setOrbitalElements(dataDwarfPlanets[i][0]*scaleFactor,dataDwarfPlanets[i][1],dataDwarfPlanets[i][2],dataDwarfPlanets[i][3],dataDwarfPlanets[i][4],dataDwarfPlanets[i][5]);
-        dwarfPlanetOrbits[i].calculateSemiConstants();
+        dwarfPlanets[i] = new Planet(sunMass);
+        dwarfPlanets[i].setOrbitalElements(dataDwarfPlanets[i][0]*scaleFactor,dataDwarfPlanets[i][1],dataDwarfPlanets[i][2],dataDwarfPlanets[i][3],dataDwarfPlanets[i][4],dataDwarfPlanets[i][5]);
+        dwarfPlanets[i].calculateSemiConstants();
 
         //PLanet object
         let geo = new THREE.SphereGeometry(2, 16, 8);
@@ -304,7 +316,7 @@ function createAstronomicalBodies()
             
         
         } );
-        let attr = dwarfPlanetOrbits[i].calculateOrbitLineColor(divisions,color.r,color.g,color.b);
+        let attr = dwarfPlanets[i].calculateOrbitLineColor(divisions,color.r,color.g,color.b);
         let pLineGeometry = new THREE.BufferGeometry();
         pLineGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( attr[0], 3 ) );
         pLineGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( attr[1], 3 ) );
@@ -337,7 +349,7 @@ function animate() {
     for(let i =0;i<_planets.length;i++)
     {
         let index = _planets[i].name;
-        let delta = planetOrbits[index].caluclateOrbitalPosition(time);
+        let delta = planets[index].caluclateOrbitalPosition(time);
 
         //planetObjects[i].position.set(delta[0],delta[1],delta[2]);
         planetGroup.children[i].position.set(delta[0],delta[1],delta[2]);
@@ -348,15 +360,25 @@ function animate() {
         _scaling = Math.max(_scaling,1500);
         _symbol.scale.set(_scaling,_scaling,_scaling);
 
+        //CSS labels
+        planetGroup.children[i].updateWorldMatrix(true, FontFaceSetLoadEvent);
+        planetGroup.children[i].getWorldPosition(tempV);
+        tempV.project(camera);
+        const x = (tempV.x *  .5 + .5) * canvas.clientWidth;
+        const y = (tempV.y * -.5 + .5) * canvas.clientHeight;
 
+        //let elem = labels[i];
+        let elem = labelContainerElem.children[i];
+        elem.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
+        //console.log(planets[i].name,tempV.x,tempV.y);
     }
 
 
     //Dwarf planet orbit list
-    for(let i = 0; i<dwarfPlanetOrbits.length;i++)
+    for(let i = 0; i<dwarfPlanets.length;i++)
     {
         let delta = [];
-        delta = dwarfPlanetOrbits[i].caluclateOrbitalPosition(time);
+        delta = dwarfPlanets[i].caluclateOrbitalPosition(time);
         dwarfPlanetGroup.children[i].position.set(delta[0],delta[1],delta[2]);
 
         let _symbol = dwarfPlanetGroup.children[i].getObjectByName("symbol");
