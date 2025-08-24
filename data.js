@@ -3,15 +3,15 @@ export {dataDwarfPlanets};
 
 /*
     dataPlanets FORMAT
-    [0] semiMajorAxis
-    [1] eccentricity
-    [2] inclination
-    [3] longitudeOfAcendingNode
-    [4] argumentOfPeriapsis
+    [0] semiMajorAxis (AU)
+    [1] eccentricity 
+    [2] inclination (Radians)
+    [3] longitudeOfAcendingNode (Radians)
+    [4] argumentOfPeriapsis (Radians)
     [5] meanLongitude
     [6] COLOR;
     [7] Size (relative to earth)
-    [8] Symbol
+    [8] Symbol (resource path)
 
 
 */
@@ -182,15 +182,15 @@ dataDwarfPlanets[7] = [
                 
 /*
     dataPlanets FORMAT
-    [0] semiMajorAxis
-    [1] eccentricity
-    [2] inclination
-    [3] longitudeOfAcendingNode
-    [4] argumentOfPeriapsis
+    [0] semiMajorAxis (AU)
+    [1] eccentricity 
+    [2] inclination (Radians)
+    [3] longitudeOfAcendingNode (Radians)
+    [4] argumentOfPeriapsis (Radians)
     [5] meanLongitude
     [6] COLOR;
     [7] Size (relative to earth)
-    [8] Symbol
+    [8] Symbol (resource path)
 
 
 */

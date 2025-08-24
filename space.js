@@ -11,9 +11,8 @@ import {Planet}  from "./planet.js";
 import {dataPlanets} from "./data.js"
 import {dataDwarfPlanets} from "./data.js"
 
-
-
-
+//import * as dat from './lib/dat.gui.module.js';
+import {GUI} from "./lib/dat.gui.module.js"
 //OBJECT DATA ARRAYS
 let planetOrbits = [];
 let planetObjects = [];
@@ -30,7 +29,9 @@ let raycaster, pointer;
 let sunLight,ambLight;
 let renderer,camera,cameraFocus,cameraTime,cameraTarget,cameraTemp,cameraControls,scene;
 
-let time = Date.now();
+
+
+let time = Date.now()*0.0000001;
 
 //CONSTANTS
 const divisions = 128; //Resolution of orbit lines
@@ -39,6 +40,10 @@ const scaleFactor = 10;
 const auEarthRadiusRatio = 0.00425875*100; //Ratio of the earth radius to 1 Astronomical Unit
 const map = new THREE.TextureLoader().load("./res/circle-04-hit.png");
 const CLEAR_COLOR =0x000f0f;
+
+const gui = new GUI();
+const guiPlanetFolder = gui.addFolder("Planets");
+const guiDwarfPlanetFolder = gui.addFolder("Dwarf Planets");
 
 //line////////////////////////////////////
 
@@ -211,6 +216,13 @@ function createAstronomicalBodies()
     scene.add(planetGroup);
     scene.add(planetLinesGroup);
 
+    //gui
+    guiPlanetFolder.open();
+    guiPlanetFolder.add(planetGroup,"visible").name("Symbols");
+    guiPlanetFolder.add(planetLinesGroup,"visible").name("Lines");
+
+    
+
     //DWARF PLANETS
     dwarfPlanetGroup = new THREE.Group();
     dwarfPlanetLinesGroup = new THREE.Group();
@@ -304,6 +316,10 @@ function createAstronomicalBodies()
     }
     scene.add(dwarfPlanetGroup);
     scene.add(dwarfPlanetLinesGroup);
+
+    guiDwarfPlanetFolder.open();
+    guiDwarfPlanetFolder.add(dwarfPlanetGroup,"visible").name("Symbols");
+    guiDwarfPlanetFolder.add(dwarfPlanetLinesGroup,"visible").name("Lines");
 }
 function animate() {
     
@@ -364,13 +380,6 @@ function animate() {
     cameraControls.update();
     renderer.render(scene, camera);
 
-}
-function F(E, e, M){
-    return M - E + e * Math.sin(E);
-}
-
-function DF(E, e){
-    return (-1.0) + e * Math.cos(E);
 }
 
 

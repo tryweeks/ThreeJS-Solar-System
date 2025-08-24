@@ -117,7 +117,7 @@ export class Planet {
             positions.push( X, Y, Z);
         
             //color.setHSL( t, 1.0, 0.5 );
-            let brightness = Math.sin(pii*i*4)*0.25+0.75;
+            let brightness =1.0;
             colors.push(R*brightness);
             colors.push(G*brightness);
             colors.push(B*brightness);
